@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 95%;
+            display: flex;
+            background-color: aqua;
+            flex-direction: column;
+            padding: 5px;
+        }
+
+        #add {
+            height: 60%;
+            width: 10%;
+            background-color: yellowgreen;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .ajbtn {
+            height: 50px;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+        #content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .comp {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top {
+            height: 30px;
+            background-color: yellowgreen;
+            display: flex;
+            justify-content: end;
+            gap: 5%;
+            padding-right: 5px;
+        }
+
+        .txt {
+            height: 300px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .edit {
+            background: none;
+            border: none;
+        }
+
+        .del {
+            background: none;
+            border: none;
+        }
+
+        i {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ajbtn">
+            <button id="add">
+                ADD NEW
+            </button>
+        </div>
+        <div id="content">
+            <div class="comp">
+                <div class="top">
+                    <button class="edit">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="del">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <textarea name="" class="txt" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //recuperation des element principal de ma page
+        const ajout = document.getElementById("add")
+        const content = document.getElementById("content")
+        const del = document.querySelectorAll(".del")
+
+        ajout.addEventListener("click", () => {
+            const bloc = `
+                <div class="comp">
+                    <div class="top">
+                        <button class="edit">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        <button class="del">
+                            <i class="fa-solid fa-trash"></i>
+                            </button>
+                    </div>
+                    <textarea name="" class="txt" readonly></textarea>
+                </div>
+                `
+            content.innerHTML += bloc
+        })
+
+        content.addEventListener("click", (e) => {
+            if (e.target.closest(".del")) {
+                const comp = e.target.closest(".comp")
+                comp.remove()
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <button id="add">Add New</button>
+        <div id="container">
+        </div>
+        <script>
+            const ajout = document.getElementById("add")
+            const container = document.getElementById("container")
+            let compt = 0
+            ajout.addEventListener("click", () => {
+                compt++
+                const p = document.createElement("p")
+                const sup = document.createElement("button")
+                p.textContent = "Composant " + compt
+                sup.textContent = "Supprimer"
+                p.appendChild(sup)
+                container.appendChild(p)
+                sup.addEventListener("click",()=>{
+                    p.remove()
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>
