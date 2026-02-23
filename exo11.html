@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Exercice 11 - Activation/Désactivation des boutons</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 95%;
+            display: flex;
+            background-color: aqua;
+            flex-direction: column;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .consigne {
+            background-color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .divs-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .left, .right {
+            flex: 1;
+            min-height: 300px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .item {
+            padding: 15px;
+            margin: 5px 0;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .item.selected {
+            background-color: yellowgreen;
+            color: white;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: yellowgreen;
+            color: white;
+            font-weight: bold;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="divs-container">
+            <div class="left" id="leftDiv">
+                <h3>Gauche</h3>
+                <div class="item selected">Élément 1 (Gauche)</div>
+                <div class="item">Élément 2 (Gauche)</div>
+                <div class="item">Élément 3 (Gauche)</div>
+            </div>
+            <div class="right" id="rightDiv">
+                <h3>Droite</h3>
+                <div class="item">Élément A (Droite)</div>
+                <div class="item">Élément B (Droite)</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="btnLeft" disabled>&lt;&lt;</button>
+            <button id="btnRight" disabled>&gt;&gt;</button>
+        </div>
+
+    </div>
+
+    <script>
+        const leftDiv = document.getElementById('leftDiv');
+        const rightDiv = document.getElementById('rightDiv');
+        const btnLeft = document.getElementById('btnLeft');
+        const btnRight = document.getElementById('btnRight');
+
+        function updateButtons() {
+            // Bouton >> activé si gauche a des éléments
+            const leftItems = leftDiv.querySelectorAll('.item');
+            btnRight.disabled = leftItems.length === 0;
+            
+            // Bouton << activé si droite a des éléments
+            const rightItems = rightDiv.querySelectorAll('.item');
+            btnLeft.disabled = rightItems.length === 0;
+
+        }
+
+        // Gestion de la sélection au clic
+        [leftDiv, rightDiv].forEach(div => {
+            div.addEventListener('click', (e) => {
+                if (e.target.classList.contains('item')) {
+                    document.querySelectorAll('.item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    e.target.classList.add('selected');
+                }
+            });
+        });
+
+        // Bouton pour ajouter un élément à gauche (pour tester)
+        const addButton = document.createElement('button');
+        addButton.textContent = "Ajouter élément à gauche";
+        addButton.style.marginTop = "10px";
+        addButton.style.backgroundColor = "yellowgreen";
+        addButton.onclick = () => {
+            const newItem = document.createElement('div');
+            newItem.className = 'item';
+            newItem.textContent = `Nouvel élément ${leftDiv.children.length}`;
+            leftDiv.appendChild(newItem);
+            updateButtons();
+        };
+        document.querySelector('.controls').after(addButton);
+
+        // Bouton pour ajouter un élément à droite (pour tester)
+        const addButtonRight = document.createElement('button');
+        addButtonRight.textContent = "Ajouter élément à droite";
+        addButtonRight.style.marginTop = "10px";
+        addButtonRight.style.marginLeft = "10px";
+        addButtonRight.style.backgroundColor = "yellowgreen";
+        addButtonRight.onclick = () => {
+            const newItem = document.createElement('div');
+            newItem.className = 'item';
+            newItem.textContent = `Nouvel élément ${rightDiv.children.length}`;
+            rightDiv.appendChild(newItem);
+            updateButtons();
+        };
+        addButton.after(addButtonRight);
+
+        // Initialisation
+        updateButtons();
+    </script>
+</body>
+</html>
