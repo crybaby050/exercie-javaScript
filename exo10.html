@@ -97,30 +97,44 @@
     </div>
 
     <script>
-        const leftDiv = document.getElementById('leftDiv');
-        const rightDiv = document.getElementById('rightDiv');
-        const btnRight = document.getElementById('btnRight');
+    const leftDiv = document.getElementById("leftDiv");
+    const rightDiv = document.getElementById("rightDiv");
+    const btnRight = document.getElementById("btnRight");
+    const items = document.querySelectorAll(".item");
 
-        // Gestion de la sélection au clic
-        [leftDiv, rightDiv].forEach(div => {
-            div.addEventListener('click', (e) => {
-                if (e.target.classList.contains('item')) {
-                    document.querySelectorAll('.item').forEach(item => {
-                        item.classList.remove('selected');
-                    });
-                    e.target.classList.add('selected');
-                }
+    items.forEach(function(item) {
+        item.addEventListener("click", function() {
+
+            // on enlève la classe selected partout
+            items.forEach(function(el) {
+                el.classList.remove("selected");
             });
-        });
 
-        // Déplacement vers la droite (>>)
-        btnRight.addEventListener('click', () => {
-            const selected = document.querySelector('.item.selected');
-            if (selected && selected.parentElement === leftDiv) {
-                rightDiv.appendChild(selected);
-                selected.classList.remove('selected');
-            }
+            // on ajoute la classe sur l'élément cliqué
+            item.classList.add("selected");
         });
-    </script>
+    });
+
+
+    // 2️ Déplacement vers la droite
+    btnRight.addEventListener("click", function() {
+
+        const selected = document.querySelector(".selected");
+
+        // vérifier si un élément est sélectionné
+        if (selected !== null) {
+
+            // vérifier s’il est dans la div gauche
+            if (selected.parentElement.id === "leftDiv") {
+
+                rightDiv.appendChild(selected);
+
+                // on enlève la sélection après déplacement
+                selected.classList.remove("selected");
+            }
+        }
+
+    });
+</script>
 </body>
 </html>
