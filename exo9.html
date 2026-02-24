@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercice 9 - Sélection au clic</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Exercice 9</title>
+
     <style>
         body {
             display: flex;
             justify-content: center;
-            font-family: Arial, sans-serif;
         }
+
         .container {
             width: 95%;
             display: flex;
@@ -17,66 +21,63 @@
             flex-direction: column;
             padding: 20px;
         }
-        h2 {
-            color: #333;
-            margin: 10px 0;
+
+        #content {
+            margin-top: 20px;
         }
-        .consigne {
+
+        .item {
             background-color: white;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        #itemList {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        li {
-            background-color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
         }
-        li.selected {
+
+        .item.active {
             background-color: yellowgreen;
             color: white;
-            transform: scale(1.02);
-            border-color: #4CAF50;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <ul id="itemList"></ul>
+
+        <div id="content"></div>
+
     </div>
 
     <script>
-        const items = ["Mon Premier", "Mon Deuxième", "Mon Troisième", "Mon Quatrième"];
-        const list = document.getElementById('itemList');
+        const data = [
+            "Mon Premier",
+            "Mon Deuxième",
+            "Mon Troisième",
+            "Mon Quatrième"
+        ];
 
-        // Génération dynamique
-        items.forEach(text => {
-            const li = document.createElement('li');
-            li.textContent = text;
-            list.appendChild(li);
+        const content = document.getElementById("content");
+
+        data.forEach(function (element) {
+            const div = document.createElement("div");
+            div.classList.add("item");
+            div.textContent = element;
+
+            content.appendChild(div);
         });
 
-        // Gestion du clic
-        list.addEventListener('click', (e) => {
-            if (e.target.tagName === 'LI') {
-                document.querySelectorAll('li').forEach(li => {
-                    li.classList.remove('selected');
+        const items = document.querySelectorAll(".item");
+
+        items.forEach(function (item) {
+            item.addEventListener("click", function () {
+                items.forEach(function (el) {
+                    el.classList.remove("active");
                 });
-                e.target.classList.add('selected');
-            }
+
+                item.classList.add("active");
+            });
         });
+
     </script>
 </body>
+
 </html>

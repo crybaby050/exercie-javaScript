@@ -1,86 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercice 8 - Sélection au survol</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 95%;
-            display: flex;
-            background-color: aqua;
-            flex-direction: column;
-            padding: 20px;
-        }
-        h2 {
-            color: #333;
-            margin: 10px 0;
-        }
-        .consigne {
-            background-color: white;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        #itemList {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        li {
-            background-color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        li.selected {
-            background-color: yellowgreen;
-            color: white;
-            transform: scale(1.02);
-            border-color: #4CAF50;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Exercice 8</title>
+
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+}
+
+.container {
+    width: 95%;
+    background: aqua;
+    padding: 20px;
+}
+
+#list {
+    margin-top: 20px;
+}
+
+.item {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.item.active {
+    background: yellowgreen;
+    color: white;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <ul id="itemList"></ul>
-    </div>
 
-    <script>
-        const items = ["Mon Premier", "Mon Deuxième", "Mon Troisième", "Mon Quatrième"];
-        const list = document.getElementById('itemList');
+<div class="container">
 
-        items.forEach(text => {
-            const li = document.createElement('li');
-            li.textContent = text;
-            list.appendChild(li);
+<h2>Liste dynamique</h2>
+
+<div id="list"></div>
+
+</div>
+
+<script>
+const data = [
+    "Mon Premier",
+    "Mon Deuxième",
+    "Mon Troisième",
+    "Mon Quatrième"
+];
+
+const list = document.getElementById("list");
+
+data.forEach(function(element){
+    const div = document.createElement("div");
+    div.classList.add("item");
+    div.textContent = element;
+    list.appendChild(div);
+});
+
+const items = document.querySelectorAll(".item");
+items.forEach(function(item){
+    item.addEventListener("mouseenter", function(){
+        items.forEach(function(el){
+            el.classList.remove("active");
         });
+        item.classList.add("active");
+    });
 
-        list.addEventListener('mouseover', (e) => {
-            if (e.target.tagName === 'LI') {
-                document.querySelectorAll('li').forEach(li => {
-                    li.classList.remove('selected');
-                });
-                e.target.classList.add('selected');
-            }
-        });
+});
+</script>
 
-        list.addEventListener('mouseleave', () => {
-            document.querySelectorAll('li').forEach(li => {
-                li.classList.remove('selected');
-            });
-        });
-    </script>
 </body>
 </html>

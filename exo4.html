@@ -1,132 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Document</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-        }
+<meta charset="UTF-8">
+<title>Exercice 4</title>
 
-        .container {
-            width: 95%;
-            display: flex;
-            background-color: aqua;
-            flex-direction: column;
-            padding: 5px;
-        }
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+}
 
-        #add {
-            height: 60%;
-            width: 10%;
-            background-color: yellowgreen;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            color: white;
-        }
+.container {
+    width: 95%;
+    background: aqua;
+    padding: 20px;
+}
 
-        .ajbtn {
-            height: 50px;
-            display: flex;
-            justify-content: end;
-            align-items: center;
-        }
+#addBtn {
+    padding: 10px 20px;
+    background: yellowgreen;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-        #content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
+#content {
+    margin-top: 20px;
+}
 
-        .comp {
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            margin: 0;
-        }
+.comp {
+    background: white;
+    margin-bottom: 15px;
+}
 
-        .top {
-            height: 30px;
-            background-color: yellowgreen;
-            display: flex;
-            justify-content: end;
-            gap: 5%;
-            padding-right: 5px;
-        }
+.top {
+    background: yellowgreen;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding: 5px;
+}
 
-        .txt {
-            height: 300px;
-            padding: 0;
-            margin: 0;
-        }
+.top button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
 
-        .edit {
-            background: none;
-            border: none;
-        }
-
-        .del {
-            background: none;
-            border: none;
-        }
-
-        i {
-            color: white;
-        }
-    </style>
+.txt {
+    width: 100%;
+    height: 120px;
+}
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="ajbtn">
-            <button id="add">
-                ADD NEW
-            </button>
-        </div>
-        <div id="content">
-            <div class="comp">
-                <div class="top">
-                    <button class="edit">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button class="del">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-                <textarea name="" class="txt" readonly></textarea>
+
+<div class="container">
+
+<button id="addBtn">Add New</button>
+
+<div id="content"></div>
+
+</div>
+
+<script>
+const addBtn = document.getElementById("addBtn");
+const content = document.getElementById("content");
+
+addBtn.addEventListener("click", function(){
+
+    const bloc = `
+        <div class="comp">
+            <div class="top">
+                <button class="edit">✏️</button>
+                <button class="del">🗑️</button>
             </div>
+            <textarea class="txt" readonly></textarea>
         </div>
-    </div>
+    `;
 
-    <script>
-        //recuperation des element principal de ma page
-        const ajout = document.getElementById("add")
-        const content = document.getElementById("content")
+    content.innerHTML += bloc;
 
-        ajout.addEventListener("click", () => {
-            const bloc = `
-                <div class="comp">
-                    <div class="top">
-                        <button class="edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        <button class="del">
-                            <i class="fa-solid fa-trash"></i>
-                            </button>
-                    </div>
-                    <textarea name="" class="txt" readonly></textarea>
-                </div>
-                `
-            content.innerHTML += bloc
-        })
+});
+</script>
 
-    </script>
 </body>
-
 </html>

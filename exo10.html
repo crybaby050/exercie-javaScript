@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Exercice 10 - Deux div et un bouton >></title>
     <style>
         body {
@@ -11,6 +12,7 @@
             justify-content: center;
             font-family: Arial, sans-serif;
         }
+
         .container {
             width: 95%;
             display: flex;
@@ -18,21 +20,13 @@
             flex-direction: column;
             padding: 20px;
         }
-        h2 {
-            color: #333;
-            margin: 10px 0;
-        }
-        .consigne {
-            background-color: white;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
+
         .divs-container {
             display: flex;
             gap: 20px;
             margin: 20px 0;
         }
+
         .left, .right {
             flex: 1;
             min-height: 300px;
@@ -40,6 +34,7 @@
             padding: 15px;
             border-radius: 5px;
         }
+
         .item {
             padding: 15px;
             margin: 5px 0;
@@ -48,16 +43,19 @@
             cursor: pointer;
             transition: all 0.3s;
         }
+
         .item.selected {
             background-color: yellowgreen;
             color: white;
         }
+
         .controls {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
         }
+
         button {
             padding: 10px 30px;
             font-size: 18px;
@@ -68,6 +66,7 @@
             color: white;
             font-weight: bold;
         }
+
         h3 {
             margin-top: 0;
             color: #333;
@@ -76,7 +75,6 @@
 </head>
 <body>
     <div class="container">
-        
         <div class="divs-container">
             <div class="left" id="leftDiv">
                 <h3>Gauche</h3>
@@ -90,51 +88,47 @@
                 <div class="item">Élément B (Droite)</div>
             </div>
         </div>
-        
+
         <div class="controls">
             <button id="btnRight">&gt;&gt;</button>
         </div>
     </div>
 
     <script>
-    const leftDiv = document.getElementById("leftDiv");
-    const rightDiv = document.getElementById("rightDiv");
-    const btnRight = document.getElementById("btnRight");
-    const items = document.querySelectorAll(".item");
+        const leftDiv = document.getElementById("leftDiv");
+        const rightDiv = document.getElementById("rightDiv");
+        const btnRight = document.getElementById("btnRight");
+        const items = document.querySelectorAll(".item");
 
-    items.forEach(function(item) {
-        item.addEventListener("click", function() {
+        items.forEach(function(item) {
+            item.addEventListener("click", function() {
+                // on enlève la classe selected partout
+                items.forEach(function(el) {
+                    el.classList.remove("selected");
+                });
 
-            // on enlève la classe selected partout
-            items.forEach(function(el) {
-                el.classList.remove("selected");
+                // on ajoute la classe sur l'élément cliqué
+                item.classList.add("selected");
             });
-
-            // on ajoute la classe sur l'élément cliqué
-            item.classList.add("selected");
         });
-    });
 
+        // Déplacement vers la droite
+        btnRight.addEventListener("click", function() {
+            const selected = document.querySelector(".selected");
 
-    // 2️ Déplacement vers la droite
-    btnRight.addEventListener("click", function() {
+            // vérifier si un élément est sélectionné
+            if (selected !== null) {
 
-        const selected = document.querySelector(".selected");
+                // vérifier s’il est dans la div gauche
+                if (selected.parentElement.id === "leftDiv") {
 
-        // vérifier si un élément est sélectionné
-        if (selected !== null) {
+                    rightDiv.appendChild(selected);
 
-            // vérifier s’il est dans la div gauche
-            if (selected.parentElement.id === "leftDiv") {
-
-                rightDiv.appendChild(selected);
-
-                // on enlève la sélection après déplacement
-                selected.classList.remove("selected");
+                    // on enlève la sélection après déplacement
+                    selected.classList.remove("selected");
+                }
             }
-        }
-
-    });
-</script>
+        });
+    </script>
 </body>
 </html>

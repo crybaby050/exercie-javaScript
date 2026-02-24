@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Exercice 11</title>
+<title>Exercice 12</title>
 <style>
 body {
     display: flex;
@@ -62,7 +62,8 @@ button:disabled {
         <div class="item">Élément 2</div>
     </div>
     <div class="right" id="rightDiv">
-        <!--<div class="item">Élément 1</div>-->
+        <div class="item">Élément A</div>
+        <div class="item">Élément B</div>
     </div>
 </div>
 
@@ -79,23 +80,48 @@ const rightDiv = document.getElementById("rightDiv");
 const btnRight = document.getElementById("btnRight");
 const btnLeft = document.getElementById("btnLeft");
 
-const items = document.querySelectorAll(".item");
-
-items.forEach(function(item){
-    item.addEventListener("click", function(){
-        document.querySelectorAll(".item").forEach(function(el){
-            el.classList.remove("selected");
-        });
-        item.classList.add("selected");
+// Sélection d'un élément au clic
+function addSelection() {
+    const allItems = document.querySelectorAll(".item");
+    allItems.forEach(item => {
+        item.onclick = function() {
+            allItems.forEach(el => el.classList.remove("selected"));
+            item.classList.add("selected");
+        }
     });
-});
+}
 
-function updateButtons(){
+// Déplacer vers la droite
+btnRight.onclick = function() {
+    const selected = leftDiv.querySelector(".item.selected");
+    if(selected) {
+        rightDiv.appendChild(selected);
+        selected.classList.remove("selected");
+        updateButtons();
+        addSelection();
+    }
+}
+
+// Déplacer vers la gauche
+btnLeft.onclick = function() {
+    const selected = rightDiv.querySelector(".item.selected");
+    if(selected) {
+        leftDiv.appendChild(selected);
+        selected.classList.remove("selected");
+        updateButtons();
+        addSelection();
+    }
+}
+
+// Activer/désactiver boutons
+function updateButtons() {
     btnRight.disabled = leftDiv.querySelectorAll(".item").length === 0;
     btnLeft.disabled = rightDiv.querySelectorAll(".item").length === 0;
 }
 
+// Initialisation
 updateButtons();
+addSelection();
 </script>
 
 </body>

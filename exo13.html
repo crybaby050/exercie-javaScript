@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Exercice 13 - Notification simple</title>
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+}
+.container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    background: aqua;
+    padding: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: yellowgreen;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.notification {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgb(245, 255, 224);
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <button id="notifyBtn">Afficher Notification</button>
+    <div id="notifContainer"></div>
+
+</div>
+
+<script>
+const notifyBtn = document.getElementById("notifyBtn");
+const notifContainer = document.getElementById("notifContainer");
+
+// Fonction simple pour afficher la notification
+function notify(message) {
+    const notif = document.createElement("div");
+    notif.className = "notification";
+    notif.innerText = message;
+    notifContainer.appendChild(notif);
+
+    // Supprimer après 1 seconde
+    setTimeout(function() {
+        notifContainer.removeChild(notif);
+    }, 1000);
+}
+
+// Clic sur le bouton pour tester
+notifyBtn.onclick = function() {
+    notify("Notification simple !");
+}
+</script>
+
+</body>
+</html>
